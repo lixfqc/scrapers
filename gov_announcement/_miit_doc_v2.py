@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-优化版DOC解析器 V2
+优化版DOC解析器 V2.1
 解决问题：
 1. 产品型号提取不准确（混入产品名称）
 2. 企业名截断（缺少"有限公司"等后缀）
+3. 企业统计表误识别（no_header问题）
+4. 纯字母缩写型号无法识别（no_model问题）
 
 数据格式：序号 + 商标(XX牌) + 产品名称 + 型号 + 企业名
 示例：1 一汽牌 纯电动轿车 CA7009 中国第一汽车集团有限公司
@@ -73,10 +75,14 @@ def find_record_boundaries(clean_text):
     找出所有记录的边界位置
     记录格式：序号 + 商标(XX牌) + 产品信息
     记录以数字序号开头（1-4位数字）
+    
+    修复：添加负向前瞻，排除企业统计表中的"牌"字（如"王牌商用车有限公司"中的"王牌"）
+    真实品牌格式：XX牌 后面跟空格或非汉字字符
+    企业统计表格式：数字 + 企业名（"牌"是企业名的一部分，如"王牌商用车"）
     """
     # 模式：序号 + 空格 + 包含"牌"字的商标
-    # 移除 look-behind，改用 \b 词边界或直接匹配
-    boundary_pattern = r'(\d{1,4})\s+([\u4e00-\u9fff]{2,10}?牌)'
+    # 负向前瞻 (?![\u4e00-\u9fff])：确保"牌"后面不跟汉字（排除企业名中的"牌"）
+    boundary_pattern = r'(\d{1,4})\s+([\u4e00-\u9fff]{2,10}?牌)(?![\u4e00-\u9fff])'
     boundaries = []
     
     for m in re.finditer(boundary_pattern, clean_text):
@@ -280,10 +286,12 @@ def extract_model_and_name(text):
     从产品信息段中分离型号和产品名称
     产品名称：纯中文描述（如"纯电动轿车"、"牵引汽车"）
     型号：字母+数字组合（如"CA7009"、"EQ4250"、"DFA1030、DFA1040"、"YB50QT"）
+          或纯字母缩写（如"CDW"，成都王牌的企业缩写）
     
     处理逻辑：
-    1. 先提取型号（可能包含多个用顿号连接的型号）
-    2. 剩余部分为产品名称
+    1. 先尝试提取标准型号（字母+数字组合）
+    2. 如果没找到标准型号，检查是否为纯字母缩写型号（回退逻辑）
+    3. 剩余部分为产品名称
     
     注意：支持摩托车/轻便摩托车的2位数字型号（如50QT、800DQT）
     """
@@ -303,6 +311,26 @@ def extract_model_and_name(text):
     model_matches = list(re.finditer(multi_model_pattern, text))
     
     if not model_matches:
+        # 回退逻辑：检查是否为纯字母缩写型号（如CDW）
+        # 仅当没有找到标准/摩托车型号时启用
+        # 条件：文本中最后一个空格分隔的token是2-4位纯字母
+        tokens = text.strip().split()
+        if tokens:
+            last_token = tokens[-1]
+            # 检查最后一个token是否为2-4位纯大写字母
+            if re.match(r'^[A-Z]{2,4}$', last_token):
+                # 验证：确保这个token不是产品名的一部分
+                # 产品名通常在型号前面，型号通常是最后一个词
+                # 只有当文本中有中文（产品描述）时，才认为最后的纯字母是型号
+                has_chinese = bool(re.search(r'[\u4e00-\u9fff]', text))
+                if has_chinese:
+                    # 提取纯字母型号
+                    model_str = last_token
+                    # 产品名称：移除型号部分后的剩余文本
+                    product_name = text.replace(last_token, '').strip()
+                    product_name = re.sub(r'\s+', ' ', product_name).strip()
+                    return product_name, model_str
+        
         # 如果没找到型号，返回空型号
         return text.strip(), ''
     
@@ -575,6 +603,8 @@ def parse_records_v2(clean_text, debug=False, debug_indices=None):
     2. 编号备注清理（在 extract_enterprise_name 中处理）
     3. 支持中英文混合品牌名
     4. 详细调试日志
+    5. 企业统计表过滤（在 find_record_boundaries 中处理）
+    6. 纯字母型号回退逻辑（在 extract_model_and_name 中处理）
     
     Args:
         clean_text: 清洁后的原始文本
@@ -742,7 +772,7 @@ def upload_to_db(records, batch_num):
 
 
 def main():
-    print("=== 工信部DOC解析器 V2（优化版）===\n")
+    print("=== 工信部DOC解析器 V2.1（优化版）===\n")
     
     # 处理的批次（使用已下载的文件）
     batches = {
