@@ -141,24 +141,32 @@ def _get_febiac_pdf_urls(data_year, data_month):
     # 生成所有可能的URL格式（按匹配概率排序）
     urls = []
     
+    # 2026年格式: YYMM + 全下划线 (实测有效，如 2601_Cars_by_make.pdf)
+    urls.append(f'{base_url}/{upload_dir}/{yymm}_Cars_by_make.pdf')
+    
     # 2026年格式: YYMM + 空格 + 连字符 + 空格
     urls.append(f'{base_url}/{upload_dir}/{yymm}%20-%20Cars%20by%20make.pdf')
     
-    # 2025年格式: YYMM + 下划线
+    # 2025年格式: YYMM + 下划线 + 空格
     urls.append(f'{base_url}/{upload_dir}/{yymm}_Cars%20by%20make.pdf')
     
     # 2024年格式A: MMYY + 空格 + 连字符 + 空格 + _0后缀
     urls.append(f'{base_url}/{upload_dir}/{mmyy}%20-%20Cars%20by%20make_0.pdf')
     
-    # 2024年格式B: MMYY + 下划线
+    # 2024年格式B: MMYY + 下划线 + 空格
     urls.append(f'{base_url}/{upload_dir}/{mmyy}_Cars%20by%20make.pdf')
     
-    # 备用格式
+    # 备用格式: 全下划线
+    urls.append(f'{base_url}/{upload_dir}/{mmyy}_Cars_by_make.pdf')
+    urls.append(f'{base_url}/{upload_dir}/{yymm}_Cars_by_make_0.pdf')
+    
+    # 备用格式: 空格连字符
     urls.append(f'{base_url}/{upload_dir}/{yymm}%20-%20Cars%20by%20make_0.pdf')
     urls.append(f'{base_url}/{upload_dir}/{mmyy}%20-%20Cars%20by%20make.pdf')
     
     # 尝试当月目录（有些数据可能当月发布）
     current_dir = f'{data_year}-{data_month:02d}'
+    urls.append(f'{base_url}/{current_dir}/{yymm}_Cars_by_make.pdf')
     urls.append(f'{base_url}/{current_dir}/{yymm}%20-%20Cars%20by%20make.pdf')
     urls.append(f'{base_url}/{current_dir}/{yymm}_Cars%20by%20make.pdf')
     
