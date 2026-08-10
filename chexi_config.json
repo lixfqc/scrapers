@@ -1,0 +1,286 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-08-10 18:48:48",
+  "chexi_list": [
+    {
+      "name": "阿维塔06",
+      "series_id": "7752",
+      "url": "https://k.autohome.com.cn/7752",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 253,
+      "last_crawl": "2026-05-17 16:13:13",
+      "last_count": 253
+    },
+    {
+      "name": "阿维塔07",
+      "series_id": "7652",
+      "url": "https://k.autohome.com.cn/7652",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 316,
+      "last_crawl": "2026-08-10 17:53:18",
+      "last_count": 315
+    },
+    {
+      "name": "长安启源A06",
+      "series_id": "8140",
+      "url": "https://k.autohome.com.cn/8140",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 347,
+      "last_crawl": "2026-08-10 17:55:14",
+      "last_count": 325
+    },
+    {
+      "name": "腾势D9",
+      "series_id": "6669",
+      "url": "https://k.autohome.com.cn/6669",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 2449,
+      "last_crawl": "2026-08-10 17:57:35",
+      "last_count": 2102
+    },
+    {
+      "name": "星途ET5",
+      "series_id": "8210",
+      "url": "https://k.autohome.com.cn/8210",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 425,
+      "last_crawl": "2026-08-10 17:58:59",
+      "last_count": 419
+    },
+    {
+      "name": "小鹏MONA M03",
+      "series_id": "6998",
+      "url": "https://k.autohome.com.cn/6998",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 266,
+      "last_crawl": "2026-08-10 18:01:03",
+      "last_count": 259
+    },
+    {
+      "name": "长安启源Q07",
+      "series_id": "7975",
+      "url": "https://k.autohome.com.cn/7975",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 707,
+      "last_crawl": "2026-08-10 18:06:16",
+      "last_count": 696
+    },
+    {
+      "name": "深蓝S09",
+      "series_id": "7979",
+      "url": "https://k.autohome.com.cn/7979",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 88,
+      "last_crawl": "2026-07-13 10:55:10",
+      "last_count": 88
+    },
+    {
+      "name": "唐新能源",
+      "series_id": "3430",
+      "url": "https://k.autohome.com.cn/3430",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 14227,
+      "last_crawl": "2026-08-10 18:10:00",
+      "last_count": 2350
+    },
+    {
+      "name": "唐L",
+      "series_id": "8005",
+      "url": "https://k.autohome.com.cn/8005",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 495,
+      "last_crawl": "2026-08-10 18:11:51",
+      "last_count": 435
+    },
+    {
+      "name": "唐",
+      "series_id": "4802",
+      "url": "https://k.autohome.com.cn/4802/stopselling",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 1787,
+      "last_crawl": "2026-08-10 18:13:23",
+      "last_count": 933
+    },
+    {
+      "name": "夏",
+      "series_id": "7851",
+      "url": "https://k.autohome.com.cn/7851",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 349,
+      "last_crawl": "2026-08-10 18:15:38",
+      "last_count": 339
+    },
+    {
+      "name": "汉",
+      "series_id": "5499",
+      "url": "https://k.autohome.com.cn/5499",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 11926,
+      "last_crawl": "2026-08-10 18:18:20",
+      "last_count": 2056
+    },
+    {
+      "name": "汉L",
+      "series_id": "7859",
+      "url": "https://k.autohome.com.cn/7859",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 563,
+      "last_crawl": "2026-07-13 11:35:33",
+      "last_count": 543
+    },
+    {
+      "name": "海狮07 EV",
+      "series_id": "6851",
+      "url": "https://k.autohome.com.cn/6851",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 591,
+      "last_crawl": "2026-08-10 18:20:50",
+      "last_count": 579
+    },
+    {
+      "name": "海狮07 DM-i",
+      "series_id": "7977",
+      "url": "https://k.autohome.com.cn/7977",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 355,
+      "last_crawl": "2026-08-10 18:22:05",
+      "last_count": 343
+    },
+    {
+      "name": "海豹07 EV",
+      "series_id": "8462",
+      "url": "https://k.autohome.com.cn/8462",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 81,
+      "last_crawl": "2026-08-10 18:25:02",
+      "last_count": 59
+    },
+    {
+      "name": "海豹07 DM-i",
+      "series_id": "7822",
+      "url": "https://k.autohome.com.cn/7822",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 572,
+      "last_crawl": "2026-08-10 18:26:20",
+      "last_count": 529
+    },
+    {
+      "name": "海豹",
+      "series_id": "6394",
+      "url": "https://k.autohome.com.cn/6394",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 2121,
+      "last_crawl": "2026-08-10 18:27:48",
+      "last_count": 2024
+    },
+    {
+      "name": "捷途山海L7 PLUS",
+      "series_id": "8106",
+      "url": "https://k.autohome.com.cn/8106",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 331,
+      "last_crawl": "2026-08-10 18:28:55",
+      "last_count": 328
+    },
+    {
+      "name": "星纪元 ES",
+      "series_id": "7035",
+      "url": "https://k.autohome.com.cn/7035",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 604,
+      "last_crawl": "2026-08-10 18:32:59",
+      "last_count": 605
+    },
+    {
+      "name": "星纪元 ET",
+      "series_id": "7174",
+      "url": "https://k.autohome.com.cn/7174",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 933,
+      "last_crawl": "2026-06-15 08:34:00",
+      "last_count": 933
+    },
+    {
+      "name": "岚图梦想家",
+      "series_id": "6459",
+      "url": "https://k.autohome.com.cn/6459",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 1574,
+      "last_crawl": "2026-08-10 18:38:56",
+      "last_count": 1513
+    },
+    {
+      "name": "岚图知音",
+      "series_id": "7728",
+      "url": "https://k.autohome.com.cn/7728",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 1405,
+      "last_crawl": "2026-08-10 15:19:38",
+      "last_count": 1254
+    },
+    {
+      "name": "极狐 阿尔法S",
+      "series_id": "5824",
+      "url": "https://k.autohome.com.cn/5824",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 634,
+      "last_crawl": "2026-08-10 18:41:51",
+      "last_count": 624
+    },
+    {
+      "name": "风云A9L",
+      "series_id": "7225",
+      "url": "https://k.autohome.com.cn/7225",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 2206,
+      "last_crawl": "2026-08-10 18:44:21",
+      "last_count": 2109
+    },
+    {
+      "name": "风云T11",
+      "series_id": "7411",
+      "url": "https://k.autohome.com.cn/7411",
+      "status": "active",
+      "added_date": "2026-05-17",
+      "total_koubei": 1111,
+      "last_crawl": "2026-08-10 18:46:04",
+      "last_count": 1071
+    },
+    {
+      "name": "大唐",
+      "series_id": "8102",
+      "url": "https://k.autohome.com.cn/8102",
+      "status": "active",
+      "added_date": "2026-07-13",
+      "total_koubei": 268,
+      "last_crawl": "2026-08-10 18:48:48",
+      "last_count": 259
+    }
+  ]
+}
