@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+!crawler_*.log.example
+
+# 数据文件（不入库）
+*.csv
+*.xlsx
+*.xls
+*.pdf
+*.png
+*.jpg
+*.html
+
+# 本地配置
+.env
+.env.local
+config/local/
+
+# 调试脚本
+_debug_*
+_probe_*
+_verify_*
+_diagnose_*
+_test_*
+
+# 编辑器临时文件
+*~
+*.bak
