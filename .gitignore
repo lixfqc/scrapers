@@ -37,7 +37,6 @@ config/local/
 # 调试脚本
 _debug_*
 _probe_*
-_verify_*
 _diagnose_*
 _test_*
 
