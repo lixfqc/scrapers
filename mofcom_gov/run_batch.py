@@ -34,7 +34,8 @@ DONE_POLICY_CODES = {'ETH'}
 DONE_TARIFF_CODES = {'GHA', 'ETH', 'DZA', 'AGO', 'EGY', 'KEN', 'NGA', 'TZA',
                      'BHR', 'KHM', 'IDN', 'JOR', 'LAO', 'MNG',
                      'QAT', 'SAU', 'THA', 'TUR', 'ARE', 'VNM',
-                     'KAZ', 'KGZ', 'UZB', 'GEO'}
+                     'KAZ', 'KGZ', 'UZB', 'GEO',
+                     'BLR', 'RUS', 'UKR', 'ARG', 'CHL', 'MEX'}
 
 # 图片类栏目无政策文章，跳过
 SKIP_COLS = {'tpjj', 'tpzj', 'tppd'}

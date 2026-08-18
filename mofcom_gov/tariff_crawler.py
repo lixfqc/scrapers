@@ -350,6 +350,76 @@ TARIFF_SOURCE = {
         ],
         'tax_rules': [],
     },
+    # 白俄罗斯：EAEU 共同关税，8703 <3年从价 15%；>3年按排量从量
+    'BLR': {
+        'site': '白俄罗斯海关（EAEU）',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 15.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '白俄罗斯EAEU共同关税（8703<3年从价15%；>3年按排量€/cc从量档）',
+             'url': None, 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 俄罗斯：EAEU 共同关税，8703 <3年从价 15%；2025-01-01 起二手车（>3年）按排量从量系数提高 20-38%
+    'RUS': {
+        'site': '俄罗斯海关（EAEU）',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 15.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '俄罗斯EAEU关税（8703<3年从价15%；2025-01-01起二手车>3年按排量从量单位税率提高20-38%，哈尔滨海关转俄海关在线2024-12-05）',
+             'url': 'http://gdfs.customs.gov.cn', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 乌克兰：8703 MFN 10% CIF；二手车专属消费税=基准×排量系数×车龄系数
+    'UKR': {
+        'site': '乌克兰国家海关署',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 10.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '乌克兰8703 MFN进口关税10% CIF（无美韩FTA；EV免关税/消费税/VAT至2026-01-01；VAT20%）',
+             'url': 'https://customs.gov.ua', 'confidence': 'P1'},
+        ],
+        'tax_rules': [
+            {'tax_type': '二手车消费税费（专属附加）', 'rate': 50.0, 'basis': 'CIF',
+             'effective_date': '2026-01-01', 'confidence': 'P1',
+             'note': '公式=基准€50(汽油≤3000cc)/€100(>3000cc)、柴油€75(≤3500cc)/€150(>3500cc)×排量系数(cc/1000)×车龄系数(年限min1-max15)；例2.0L汽油6年车=€50×2.0×6=€600'},
+        ],
+    },
+    # 阿根廷：Mercosur TEC，NCM 8703 敏感部门 35% CIF；另有SIRA进口许可
+    'ARG': {
+        'site': '阿根廷海关（Mercosur TEC）',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 35.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '阿根廷Mercosur TEC（NCM 8703汽车为敏感部门，关税35% CIF；另有VAT21%、SIRA进口许可）',
+             'url': None, 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 智利：8703 MFN 6% CIF（中国-智利FTA下多数车型0%）；VAT19%、奢侈税>$35k 15%
+    'CHL': {
+        'site': '智利国家海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 6.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '智利8703 MFN关税6% CIF（中国-智利FTA下多数车型0%；VAT19%；奢侈税>$35k 15%）',
+             'url': None, 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 墨西哥：2025-12-29 法律化非FTA国家整车进口关税 50%（8703.22/23/24/32/33/34/40/60/80），FOB基准
+    'MEX': {
+        'site': '墨西哥海关（SE/IVA）',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 50.0, 'duty_base': 'FOB', 'currency': None,
+             'effective_date': '2025-12-29', 'tariff_type': 'MFN最惠国',
+             'source': '墨西哥2025-12-29将非FTA国家整车进口关税50%写入法律（8703.22/23/24/32/33/34/40/60/80 finished passenger vehicles，White & Case；与2024-12总统令一致；旧MFN 20%口径失效；IVA16%）',
+             'url': 'https://www.whitecase.com/insight-alert/mexico-formalizes-50-tariff', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
 }
 
 
