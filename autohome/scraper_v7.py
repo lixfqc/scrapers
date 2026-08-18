@@ -301,6 +301,37 @@ def verify_series_mapping(series_id, expected_name, real_name):
     if ne in nr or nr in ne: return True, f"部分匹配: expected='{expected_name}', real='{real_name}'"
     return False, f"映射错误! expected='{expected_name}', real='{real_name}', series_id={series_id}"
 
+def _prefix_with_series(raw_spec, real_series):
+    """
+    M2-A2 修复：series 尾部重叠型前缀漏字补全（4条保守边界，A电脑V2全同意）。
+    例：raw='启源A06 2026款 630Max', series='长安启源A06' → '长安启源A06 2026款 630Max'
+    仅在首词=series 连续尾部子串 且 前缀段≥2字 时才去重叠拼接，否则原样返回，避免误拼。
+    """
+    if not raw_spec or not real_series:
+        return raw_spec
+    def _norm(s):
+        return re.sub(r'[\s\-_]+', '', s or '')
+    first = raw_spec.strip().split(' ')[0].strip()
+    n_first, n_series = _norm(first), _norm(real_series)
+    if not first or not n_first or not n_series:
+        return raw_spec
+    # 边界1：首词完整等于 series → 不改（A3类正常命名；如 series='汉'/'途岳'，代码端不补主品牌前缀，交② DOM 修）
+    if n_first == n_series:
+        return raw_spec
+    # 边界2：首词是 series 的连续尾部子串 且 首词长度≥3 → 去重叠拼接（否则原样返回）
+    if not n_series.endswith(n_first) or len(n_first) < 3:
+        return raw_spec
+    new_spec = real_series + raw_spec.strip()[len(first):]
+    # 边界4：series 比首词多出的前缀段≥2字才拼（'长安'/'沃尔沃'/'马自达'均≥2字；
+    # 缺1字如 real='万象K01' raw='象K01' 视为 CSS 字头漏字，交② DOM 修，代码端不拼）
+    if len(n_series) - len(n_first) < 2:
+        return raw_spec
+    # 边界3：拼完去重（防御性：去重叠拼接本不产生重复，防边角 case 拼出'长安启源A06 启源A06 …'）
+    dup = real_series + ' ' + first
+    if dup in new_spec:
+        new_spec = new_spec.replace(dup, real_series)
+    return new_spec
+
 # ==================== 爬取 ====================
 def scrape(series_id):
     html = fetch_html('https://car.autohome.com.cn/config/series/' + str(series_id) + '.html')
@@ -339,7 +370,9 @@ def scrape(series_id):
                 # 修复(2026-08-11): config 分支的 value 也走 CSS 还原（原 clean() 只剥标签会丢字）
                 val = _resolve_css_text(item.get('value', ''), css_map)
                 if '车型' in clean_name:
-                    if val and not records[sid].get('spec_name'): records[sid]['spec_name'] = val
+                    if val and not records[sid].get('spec_name'):
+                        # 修复(2026-08-14): M2-A2 前缀漏字补全（A电脑V2实测 head_spec 带主品牌前缀）
+                        records[sid]['spec_name'] = _prefix_with_series(val, real_series_name)
                     continue
                 if not val or val in ('-', ''): continue
                 field = match_param(clean_name, val)
