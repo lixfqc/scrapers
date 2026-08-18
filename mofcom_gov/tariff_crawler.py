@@ -233,6 +233,78 @@ TARIFF_SOURCE = {
         ],
         'tax_rules': [],
     },
+    # 卡塔尔：GCC 统一关税（除烟酒外大部分进口商品 5%，无VAT），8703 通用 5%
+    'QAT': {
+        'site': '卡塔尔海关/GCC统一关税',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 5.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '卡塔尔海关GCC统一关税（GCC六国乘用车统一5%；卡塔尔无VAT，EV免注册费）',
+             'url': 'https://www.customs.gov.qa', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 沙特：GCC 统一关税 5%，VAT 15%（普遍），8703 通用 5%；SABER 认证准入；>4.0L 大排量另有消费税
+    'SAU': {
+        'site': '沙特海关/GCC统一关税',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 5.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '沙特海关GCC统一关税（乘用车5% CIF；VAT 15%普遍；SABER/SASO认证准入；>4.0L大排量另有消费税）',
+             'url': 'https://zatca.gov.sa', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 泰国：泰国海关税则 8703 乘用车 MFN 主流 80%（部分车型 40-80% 区间），EV 免税（EV3.5 政策）
+    'THA': {
+        'site': '泰国海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 80.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '泰国海关税则（8703乘用车非东盟CBU MFN主流80%，部分低排量40-80%区间待核；EV免征关税；另有消费税按排量8-50%、VAT 7%）',
+             'url': 'https://www.customs.go.th', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 土耳其：非欧盟 8703 乘用车 MFN 40%（关税同盟内欧盟原产0%），另有特别消费税按排量
+    'TUR': {
+        'site': '土耳其海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 40.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '土耳其海关关税（非欧盟8703乘用车MFN约40%，范围40-60%；关税同盟内欧盟原产0%；另有特别消费税按排量、VAT 20%）',
+             'url': 'https://ticaret.gov.tr', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 阿联酋：GCC 统一关税 5%，VAT 5%（普遍），8703 通用 5%；车龄≤5年准入
+    'ARE': {
+        'site': '阿联酋海关/GCC统一关税',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 5.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '阿联酋海关GCC统一关税（乘用车5% CIF；VAT 5%普遍；车龄≤5年准入限制）',
+             'url': 'https://www.customs.gov.ae', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 越南：Decree 73/2025/ND-CP（2025-03-31生效）8703 MFN 由64%降至50%（主流档）、8703.24 轿车/4WD由45%降至32%
+    'VNM': {
+        'site': '越南海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 50.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2025-03-31', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（主流档≤3000cc，原64%降）',
+             'source': '越南Decree 73/2025/ND-CP（2025-03-31生效）：8703乘用车MFN由64%降至50%（8703.23.63/57等主流档）；另有特别消费税按排量35-150%、VAT 10%；车龄>5年禁入',
+             'url': 'https://www.customs.gov.vn', 'confidence': 'P1'},
+            {'hs_code': '8703', 'rate_pct': 32.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2025-03-31', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（轿车/4WD>3000cc档，原45%降）',
+             'source': '越南Decree 73/2025/ND-CP（2025-03-31生效）：8703.24.51轿车/4WD(>3000cc)MFN由45%降至32%；另有特别消费税按排量35-150%、VAT 10%；车龄>5年禁入',
+             'url': 'https://www.customs.gov.vn', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
 }
 
 

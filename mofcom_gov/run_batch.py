@@ -32,13 +32,17 @@ DONE_POLICY_CODES = {'ETH'}
 
 # 关税已落库国家（阶段A-0 + 批次累计，重跑幂等）
 DONE_TARIFF_CODES = {'GHA', 'ETH', 'DZA', 'AGO', 'EGY', 'KEN', 'NGA', 'TZA',
-                     'BHR', 'KHM', 'IDN', 'JOR', 'LAO', 'MNG'}
+                     'BHR', 'KHM', 'IDN', 'JOR', 'LAO', 'MNG',
+                     'QAT', 'SAU', 'THA', 'TUR', 'ARE', 'VNM'}
 
 # 图片类栏目无政策文章，跳过
 SKIP_COLS = {'tpjj', 'tpzj', 'tppd'}
 
 # mofcom 子站域名与 ISO 码不一致的国家映射（code -> 子站标识）
 SITE_CODE_MAP = {'KHM': 'cb'}
+
+# 国家代码别名（34国清单用旧名，映射到 ISO 3166 alpha3）
+COUNTRY_CODE_MAP = {'KSA': 'SAU'}
 
 # 重点栏目优先（政策法规/重要通知/经贸新闻 在前）
 PRIORITY_COLS = ['zcfg', 'zytz', 'jmxw', 'zajm', 'zahz', 'jstx', 'tzzn', 'yjts',
@@ -65,7 +69,7 @@ def crawl_policy_batch(codes, db, logger, max_pages_per_col=10):
     """多国政策爬取，返回 {code: stat}"""
     stat = {}
     for code in codes:
-        country = db.get_country(iso_alpha3=code)
+        country = db.get_country(iso_alpha3=COUNTRY_CODE_MAP.get(code, code))
         if not country:
             stat[code] = {'error': 'dim_country 无该国'}
             continue
