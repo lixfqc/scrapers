@@ -305,6 +305,51 @@ TARIFF_SOURCE = {
         ],
         'tax_rules': [],
     },
+    # 哈萨克斯坦：EAEU 关税，汽油/柴油车 <3年从价 15%（主流）；EV/串联混动零关税；>3000cc 另消费税100坚戈/cc
+    'KAZ': {
+        'site': '哈萨克斯坦海关（EAEU）',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 15.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '哈萨克斯坦EAEU关税（汽油/柴油车<3年从价15%为主；3-5年€1.5-3.6/cc、>5年€3.0-5.7/cc分龄从量档；EV/串联混动零关税；>3000cc另消费税100坚戈/cc、特别消费税10%、报废回收费；VAT 12%）',
+             'url': 'https://www.10100.com/article/83374395', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 吉尔吉斯斯坦：EAEU 成员，8703 通用 15%；EV 免税配额
+    'KGZ': {
+        'site': '吉尔吉斯斯坦海关（EAEU）',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 15.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '吉尔吉斯斯坦EAEU关税（8703新车/通用15%，2019年由17%降；二手车分龄档口径混乱5-22%；EV免税配额用完后15%）',
+             'url': None, 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 乌兹别克斯坦：2023-06总统令优惠期（2025-12-31止）到期，2026-01-01恢复标准税率 15%+排量从量$0.6-1/cc
+    'UZB': {
+        'site': '乌兹别克斯坦海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 15.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（基础税率档，另按排量从量$0.6-1/cc）',
+             'source': '乌兹别克斯坦关税（2023-06总统令优惠期2025-12-31止；2026-01-01恢复标准：燃油车基础15%+排量从量$0.6/cc(1200-1500cc)/$0.8/cc(1500-1800cc)/$1/cc(1800-3000cc)；二手车1-3年回收费90-480BCU；VAT12%；EV零关税）',
+             'url': None, 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 格鲁吉亚：8703 关税 0.5%，对乘用车8703免征增值税（格海关法），消费税按排量5-100%
+    'GEO': {
+        'site': '格鲁吉亚海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 0.5, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '格鲁吉亚海关法（8703乘用车进口关税0.5%；8703免征增值税；消费税按排量5-100%2026调整后；其他商品VAT 18%）',
+             'url': None, 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
 }
 
 

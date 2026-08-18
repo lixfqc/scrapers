@@ -33,7 +33,8 @@ DONE_POLICY_CODES = {'ETH'}
 # 关税已落库国家（阶段A-0 + 批次累计，重跑幂等）
 DONE_TARIFF_CODES = {'GHA', 'ETH', 'DZA', 'AGO', 'EGY', 'KEN', 'NGA', 'TZA',
                      'BHR', 'KHM', 'IDN', 'JOR', 'LAO', 'MNG',
-                     'QAT', 'SAU', 'THA', 'TUR', 'ARE', 'VNM'}
+                     'QAT', 'SAU', 'THA', 'TUR', 'ARE', 'VNM',
+                     'KAZ', 'KGZ', 'UZB', 'GEO'}
 
 # 图片类栏目无政策文章，跳过
 SKIP_COLS = {'tpjj', 'tpzj', 'tppd'}

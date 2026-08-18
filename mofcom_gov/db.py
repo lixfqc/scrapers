@@ -4,6 +4,7 @@
 所有落库幂等：URL/UNIQUE 冲突时视为已存在（去重跳过）
 """
 import hashlib
+import time
 from datetime import datetime
 
 import psycopg2
@@ -140,6 +141,8 @@ class Db:
                   duration_ms=None, delay_ms=None, retry_count=0, error_msg=None):
         """记 crawl_task_log 一条；UNIQUE(target_url, crawl_time) 冲突时忽略"""
         try:
+            if not target_url:
+                target_url = f'{source_site}-{target_type}-{int(time.time())}'
             self.cur.execute("""
                 INSERT INTO crawl_task_log
                     (country_id, source_site, source_level, crawl_strategy,
