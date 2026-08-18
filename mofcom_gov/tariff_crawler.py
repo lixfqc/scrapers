@@ -165,6 +165,74 @@ TARIFF_SOURCE = {
              'note': '车龄>8年（自生产年份计）营运utility车额外消费税5%'},
         ],
     },
+    # 巴林：GCC 统一关税（除烟酒外大部分进口商品 5%，美国FTA除外），8703 通用 5%
+    'BHR': {
+        'site': '巴林海关/GCC统一关税',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 5.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '巴林海关GCC统一关税（US ITA 2025-12：除烟酒外大部分非GCC进口商品 5%；美国原产FTA零关税）',
+             'url': 'https://www.customs.gov.bh/en/tariff-finder', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 柬埔寨：GDCE AHTN 税则，二手乘用车主流 35%（含EV>3000cc 高档）；另有特殊税(Special Tax)按排量 3-45% 属消费税
+    'KHM': {
+        'site': '柬埔寨海关GDCE',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 35.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（二手乘用车主流排量档）',
+             'source': '柬埔寨海关GDCE AHTN税则（8703载客<10人进口关税0-35%，二手车主流按35%；另有特殊税Special Tax按排量3-45%、VAT10%普遍税费）',
+             'url': 'https://customs.gov.kh/en', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 印尼：Bea Masuk CBU 轿车 MFN 主流 10%（PMK 简化；另有奢侈品税PPnBM按排量10-200%属消费税），二手车商业进口受严格配额
+    'IDN': {
+        'site': '印尼海关DJBC',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 10.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '印尼Bea Masuk（8703 CBU轿车MFN约10% CIF；另有奢侈品税PPnBM按排量10-200%、PPN11%普遍税费；二手车商业进口受严格配额）',
+             'url': 'https://www.beacukai.go.id', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 约旦：Jordan Customs 8703 轿车关税（GST 16% 普遍），二手车主流 30%
+    'JOR': {
+        'site': '约旦海关Jordan Customs',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 30.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '约旦海关关税表（8703轿车进口关税30% CIF；另有GST 16%、车辆特别税Special Tax普遍税费）',
+             'url': 'https://customs.gov.jo', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 老挝：老挝海关 AHTN 税则（按类型/车龄/排量计），乘用车主流 ≤2000cc 档 40%
+    'LAO': {
+        'site': '老挝海关AHTN税则',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 40.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（≤2000cc）',
+             'source': '老挝海关AHTN税则（8703乘用车关税0-40% ASEAN口径，主流≤2000cc档40%；按类型/车龄/排量评估，>2000cc档待核）',
+             'url': 'https://www.customs.gov.la', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 蒙古：蒙古统一关税 5%（WTO TPR 口径），8703 通用 5%
+    'MNG': {
+        'site': '蒙古海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 5.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '蒙古统一关税（WTO TPR：多数进口商品从价关税5%；8703通用5%）',
+             'url': 'https://www.customs.gov.mn', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
 }
 
 

@@ -31,10 +31,14 @@ SEED_POLICY_CODES = {'GHA', 'KAZ', 'RUS', 'UZB', 'GEO'}
 DONE_POLICY_CODES = {'ETH'}
 
 # 关税已落库国家（阶段A-0 + 批次累计，重跑幂等）
-DONE_TARIFF_CODES = {'GHA', 'ETH', 'DZA', 'AGO', 'EGY', 'KEN', 'NGA', 'TZA'}
+DONE_TARIFF_CODES = {'GHA', 'ETH', 'DZA', 'AGO', 'EGY', 'KEN', 'NGA', 'TZA',
+                     'BHR', 'KHM', 'IDN', 'JOR', 'LAO', 'MNG'}
 
 # 图片类栏目无政策文章，跳过
 SKIP_COLS = {'tpjj', 'tpzj', 'tppd'}
+
+# mofcom 子站域名与 ISO 码不一致的国家映射（code -> 子站标识）
+SITE_CODE_MAP = {'KHM': 'cb'}
 
 # 重点栏目优先（政策法规/重要通知/经贸新闻 在前）
 PRIORITY_COLS = ['zcfg', 'zytz', 'jmxw', 'zajm', 'zahz', 'jstx', 'tzzn', 'yjts',
@@ -70,7 +74,7 @@ def crawl_policy_batch(codes, db, logger, max_pages_per_col=10):
             stat[code] = {'skipped': '种子政策已有，跳过原文爬取'}
             logger.info('[%s] 种子国跳过政策原文', code)
             continue
-        a2 = country['iso_alpha2'].lower()
+        a2 = SITE_CODE_MAP.get(code, country['iso_alpha2'].lower())
         client = MofcomClient(a2, logger=logger)
         cols = client.discover_columns()
         if not cols:
