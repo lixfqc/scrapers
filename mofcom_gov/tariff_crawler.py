@@ -25,10 +25,23 @@ TARIFF_SOURCE = {
     # 8703 载客车辆按排量分档 5/10/20%（CIF），与新旧无关 -> goods_scope='通用'
     'GHA': {
         'site': 'GRA加纳海关',
+        # 关税分档规则（2026-08-18 更新）：按排量分档落多行（ECOWAS CET 5/10/20%），
+        # goods_scope 注明各排量档位；source 保留完整分档说明；禁止只落一行中档
         'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 5.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（汽油≤1000cc/柴油≤1500cc，ECOWAS CET 低档）',
+             'source': '加纳海关GRA车辆进口税表（ECOWAS CET 8703按排量分档：汽油≤1000cc/柴油≤1500cc 5%，汽油1000-3000cc/柴油1500-2500cc 10%，>3000cc/>2500cc 20%）',
+             'url': 'https://gra.gov.gh/customs/vehicle-importation', 'confidence': 'P0'},
             {'hs_code': '8703', 'rate_pct': 10.0, 'duty_base': 'CIF', 'currency': None,
              'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
-             'source': '加纳海关GRA车辆进口税表（ECOWAS CET，8703按排量分档：汽油≤1000cc/柴油≤1500cc 5%，汽油1000-3000cc/柴油1500-2500cc 10%，>3000cc/>2500cc 20%）',
+             'goods_scope': '通用（汽油1000-3000cc/柴油1500-2500cc，ECOWAS CET 中档）',
+             'source': '加纳海关GRA车辆进口税表（ECOWAS CET 8703按排量分档：汽油≤1000cc/柴油≤1500cc 5%，汽油1000-3000cc/柴油1500-2500cc 10%，>3000cc/>2500cc 20%）',
+             'url': 'https://gra.gov.gh/customs/vehicle-importation', 'confidence': 'P0'},
+            {'hs_code': '8703', 'rate_pct': 20.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（汽油>3000cc/柴油>2500cc，ECOWAS CET 高档）',
+             'source': '加纳海关GRA车辆进口税表（ECOWAS CET 8703按排量分档：汽油≤1000cc/柴油≤1500cc 5%，汽油1000-3000cc/柴油1500-2500cc 10%，>3000cc/>2500cc 20%）',
              'url': 'https://gra.gov.gh/customs/vehicle-importation', 'confidence': 'P0'},
         ],
         'tax_rules': [
@@ -56,6 +69,102 @@ TARIFF_SOURCE = {
         ],
         'tax_rules': [],
     },
+    # 阿尔及利亚：douane.gov.dz 海关税则第87章（WITS TRAINS 转录，P1），8703 按排量分档
+    'DZA': {
+        'site': '阿尔及利亚海关douane.gov.dz',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 12.86, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（8703.21汽油≤1000cc，清关年或次年款）',
+             'source': '阿尔及利亚海关税则第8703.21目（汽油≤1000cc 12.86%，清关年或次年产）',
+             'url': 'https://www.douane.gov.dz', 'confidence': 'P1'},
+            {'hs_code': '8703', 'rate_pct': 12.5, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（8703.22汽油1000-1500cc）',
+             'source': '阿尔及利亚海关税则第8703.22目（汽油1000-1500cc 12.5%）',
+             'url': 'https://www.douane.gov.dz', 'confidence': 'P1'},
+            {'hs_code': '8703', 'rate_pct': 18.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（8703.32柴油1500-2500cc）',
+             'source': '阿尔及利亚海关税则第8703.32目（柴油1500-2500cc 18%）',
+             'url': 'https://www.douane.gov.dz', 'confidence': 'P1'},
+            {'hs_code': '8703', 'rate_pct': 25.71, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（8703.33柴油>2500cc/8703.24汽油>3000cc）',
+             'source': '阿尔及利亚海关税则第8703.33目（柴油>2500cc 25.71%）',
+             'url': 'https://www.douane.gov.dz', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 安哥拉：AGT Pauta Aduaneira 2022（官方声明转录，P1），普通乘用车关税 25%->15%
+    'AGO': {
+        'site': '安哥拉AGT税务总局',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 15.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '安哥拉Pauta Aduaneira 2022（AGT官方：普通乘用车进口关税由25%降至15%，高档车Lexus由30%降至20%）',
+             'url': 'https://agt.minfin.gov.ao', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 埃及：埃及海关关税表（US ITA trade.gov 2025-11 转录，P1），8703 按排量分档；车龄≤3年为准入限制
+    'EGY': {
+        'site': '埃及海关',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 30.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（≤1600cc）',
+             'source': '埃及海关关税表（US ITA 2025-11：1600cc以下汽车关税由40%降至30%，非EU原产地）',
+             'url': 'https://customs.gov.eg', 'confidence': 'P1'},
+            {'hs_code': '8703', 'rate_pct': 100.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'goods_scope': '通用（>1600cc）',
+             'source': '埃及海关关税表（US ITA 2025-11：1600cc以上汽车关税由135%降至100%，非EU原产地）',
+             'url': 'https://customs.gov.eg', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 肯尼亚：EAC共同对外关税2022修订（P1），8703由25%提至35%
+    'KEN': {
+        'site': '肯尼亚KRA海关/EAC CET',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 35.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '东共体共同对外关税EAC CET 2022修订（8702/8703/8704由25%提至35%，肯尼亚2023-07起实施；另有IDF3.5%/RDL2.5%/VAT16%普遍税费）',
+             'url': 'https://www.kra.go.ke', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 尼日利亚：尼联邦税则/NCS（ECOWAS CET，P1），8703=35%
+    'NGA': {
+        'site': '尼日利亚海关NCS',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 35.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '尼日利亚联邦税则/尼海关NCS（ECOWAS CET 8703=35% CIF；另有ECOWAS征费0.5%、ETLS 0.2%、VAT 7.5%普遍税费）',
+             'url': 'https://customs.gov.ng', 'confidence': 'P1'},
+        ],
+        'tax_rules': [],
+    },
+    # 坦桑尼亚：坦海关/TRA（EAC CET 25% 清关口径，P1）+ 超龄附加消费税（二手车专属->tax_rule）
+    'TZA': {
+        'site': '坦桑尼亚海关TRA/EAC CET',
+        'tariffs': [
+            {'hs_code': '8703', 'rate_pct': 25.0, 'duty_base': 'CIF', 'currency': None,
+             'effective_date': '2026-01-01', 'tariff_type': 'MFN最惠国',
+             'source': '坦桑尼亚海关关税表/EAC共同对外关税（8703进口关税25% CIF；另有>2000cc消费税10%、1000-2000cc 5%、VAT20%普遍税费；EAC CET名义35%差异见问题清单）',
+             'url': 'https://www.tra.go.tz', 'confidence': 'P1'},
+        ],
+        'tax_rules': [
+            # 二手车专属附加：车龄>8年额外消费税（超龄罚款类）-> tax_rule 而非 goods_scope
+            {'tax_type': '超龄附加消费税', 'rate': 25.0, 'basis': 'CIF',
+             'effective_date': '2026-01-01', 'confidence': 'P1',
+             'note': '车龄>8年（自生产年份计）非营运车额外消费税25%'},
+            {'tax_type': '超龄附加消费税', 'rate': 5.0, 'basis': 'CIF',
+             'effective_date': '2026-01-01', 'confidence': 'P1',
+             'note': '车龄>8年（自生产年份计）营运utility车额外消费税5%'},
+        ],
+    },
 }
 
 
@@ -81,9 +190,14 @@ def crawl_tariff(country_codes=('GHA', 'ETH'), db=None, logger=None):
 
         for t in entry['tariffs']:
             text = f"{t['source']}；{t.get('note', '')}"
-            goods_scope, evidence = judge_goods_scope(text, t['hs_code'])
+            # 分档行显式 goods_scope（注明排量档位）优先；否则按规范判定
+            if t.get('goods_scope'):
+                goods_scope, evidence = t['goods_scope'], ''
+            else:
+                goods_scope, evidence = judge_goods_scope(text, t['hs_code'])
             conf = t['confidence']
-            if goods_scope != '通用':
+            # 仅真正判定为 '新车'/'二手车' 时降档；'通用（档位说明）' 仍视为通用不降
+            if goods_scope in ('新车', '二手车'):
                 conf = _downgrade(conf)
             t0 = time.time()
             tid, is_new = db.upsert_tariff_rate(

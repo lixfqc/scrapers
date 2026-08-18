@@ -62,14 +62,14 @@ class Db:
                            rate_pct, duty_base, currency, effective_date,
                            source, url, confidence='P1'):
         """
-        幂等落 tariff_rate（UNIQUE(country_id, hs_code, tariff_type, effective_date)）
+        幂等落 tariff_rate（UNIQUE(country_id, hs_code, goods_scope, tariff_type, effective_date)）
         返回 (tariff_id, is_new)
         """
         self.cur.execute("""
             SELECT tariff_id FROM tariff_rate
-            WHERE country_id = %s AND hs_code = %s AND tariff_type = %s
-              AND effective_date = %s
-        """, (country_id, hs_code, tariff_type, effective_date))
+            WHERE country_id = %s AND hs_code = %s AND goods_scope = %s
+              AND tariff_type = %s AND effective_date = %s
+        """, (country_id, hs_code, goods_scope, tariff_type, effective_date))
         row = self.cur.fetchone()
         if row:
             self.cur.execute("""

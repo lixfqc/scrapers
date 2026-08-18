@@ -11,6 +11,7 @@ import time
 from config import SITES, POLICY_KEYWORDS, POLICY_BODY_KEYWORDS
 from client import MofcomClient
 from db import Db, checksum
+from direction import check_direction
 
 # 标题关键词：命中才抓详情
 TITLE_RE = re.compile('|'.join(POLICY_KEYWORDS), re.I)
@@ -42,7 +43,8 @@ def crawl_policy_for_country(country, site_code, columns, max_pages_per_col=5,
     logger = logger or logging.getLogger('mofcom.policy')
     db = db or Db()
     client = MofcomClient(site_code, logger=logger)
-    stat = {'scanned': 0, 'hit': 0, 'inserted': 0, 'dedup': 0, 'failed': 0, 'urls': []}
+    stat = {'scanned': 0, 'hit': 0, 'inserted': 0, 'dedup': 0,
+            'direction_mismatch': 0, 'failed': 0, 'urls': []}
     country_id = country['country_id']
 
     for col, col_id in columns.items():
@@ -72,6 +74,15 @@ def crawl_policy_for_country(country, site_code, columns, max_pages_per_col=5,
                     continue
                 if not _body_relevant(art['content_text']):
                     logger.debug('正文不相关，跳过: %s', item['title'])
+                    continue
+                # 方向校验：中国单边零关税/产品输华/纯宏观新闻 不落库
+                direction, reason = check_direction(art['title'], art['content_text'])
+                if direction != 'OK':
+                    stat['direction_mismatch'] += 1
+                    db.log_crawl(country_id, f'mofcom_{site_code}', 'LIGHT', '关键词过滤+方向校验',
+                                 art['url'], 'policy_doc', '方向不符', duration_ms=duration,
+                                 error_msg=reason)
+                    logger.info('[%s] 方向不符: %s（%s）', site_code, item['title'][:40], reason)
                     continue
                 doc_id, is_new = db.upsert_policy_doc(
                     country_id=country_id,

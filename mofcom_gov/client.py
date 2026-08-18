@@ -8,6 +8,7 @@ mofcom 子站请求客户端
 import re
 import time
 import json
+import ast
 import random
 import logging
 
@@ -22,7 +23,10 @@ class MofcomClient:
 
     def __init__(self, site_code, logger=None):
         self.site = site_code
-        self.web_id = SITES[site_code]['webId']
+        # web_id 懒加载：预配站点直接取；未预配站点由 get_col_id 动态发现
+        self.web_id = SITES[site_code]['webId'] if site_code in SITES else None
+        self.tpl_set_id = None   # 动态从栏目页 queryData 提取（各站不同）
+        self.tag_id = None       # 动态从栏目页 queryData 提取（一般='信息列表'）
         self.logger = logger or logging.getLogger(f'mofcom.{site_code}')
         self.session = requests.Session()
         self.failure_count = 0
@@ -72,19 +76,77 @@ class MofcomClient:
         return int(delay * 1000)
 
     # ---------- 栏目标识 ----------
+    @staticmethod
+    def _utf8_text(resp):
+        """响应体按 UTF-8 解码（requests .text 可能被 ISO-8859-1 误判导致中文乱码）"""
+        try:
+            return resp.content.decode('utf-8', errors='replace')
+        except Exception:
+            return resp.text
+
+    def parse_unit_query(self, text):
+        """
+        从栏目页提取 unitbuild.js 的 queryData 属性（真实 webId/tplSetId/tagId/pageId）
+        返回 dict 或 None
+        """
+        m = re.search(r'queryData="([^"]+)"', text)
+        if not m:
+            return None
+        try:
+            return ast.literal_eval(m.group(1))
+        except Exception:
+            return None
+
     def get_col_id(self, column):
-        """从栏目页 index.html 的 meta name="ColId" 提取栏目 ID"""
+        """从栏目页 index.html 的 meta name="ColId" 提取栏目 ID，顺带发现 webId/tplSetId/tagId"""
         url = f'http://{self.site}.mofcom.gov.cn/{column}/index.html'
         resp = self._get(url)
         if not resp or resp.status_code != 200:
             return None
-        soup = BeautifulSoup(resp.content, 'html.parser')
+        text = self._utf8_text(resp)
+        # 优先从 queryData 提取真实接口参数（各站 tplSetId 不同，硬编码会 404/空）
+        qd = self.parse_unit_query(text)
+        if qd:
+            self.web_id = qd.get('webId') or self.web_id
+            self.tpl_set_id = qd.get('tplSetId') or self.tpl_set_id
+            self.tag_id = qd.get('tagId') or self.tag_id
+            if qd.get('webId'):
+                self.logger.info('动态发现 webId=%s tplSetId=%s tagId=%r',
+                                 self.web_id, self.tpl_set_id, self.tag_id)
+            return qd.get('pageId') or self._col_id_fallback(text)
+        # 兜底：meta ColId + 页面正则 webId
+        if not self.web_id:
+            m = re.search(r'webId["\']?\s*[:=]\s*["\']([0-9a-f]{32})["\']', text, re.I)
+            if m:
+                self.web_id = m.group(1)
+        return self._col_id_fallback(text)
+
+    def _col_id_fallback(self, text):
+        soup = BeautifulSoup(text, 'html.parser')
         meta = soup.find('meta', attrs={'name': re.compile('ColId', re.I)})
         if meta and meta.get('content'):
             return meta['content'].strip()
-        # 兜底：script 里找 ColId
-        m = re.search(r'ColId["\']?\s*[:=]\s*["\']([A-Za-z0-9]+)["\']', resp.text)
+        m = re.search(r'ColId["\']?\s*[:=]\s*["\']([A-Za-z0-9]+)["\']', text)
         return m.group(1) if m else None
+
+    def discover_columns(self):
+        """
+        从首页提取栏目路径列表（不含外链/文件链接）
+        返回去重后的栏目列表，如 ['jmxw', 'scdy', ...]
+        """
+        url = f'http://{self.site}.mofcom.gov.cn/'
+        resp = self._get(url)
+        if not resp or resp.status_code != 200:
+            return []
+        text = resp.text
+        cols = set()
+        for m in re.finditer(r'href=["\']/([A-Za-z0-9_]{2,20})/(?:index\.html)?["\']', text):
+            cols.add(m.group(1))
+        for m in re.finditer(r'/([A-Za-z0-9_]{2,20})/art/', text):
+            cols.add(m.group(1))
+        # 排除明显非文章栏目
+        SKIP = {'upload', 'images', 'js', 'css', 'files', 'art'}
+        return sorted(c for c in cols if c not in SKIP)
 
     # ---------- 列表 ----------
     def fetch_list_page(self, col_id, page_no, page_size=15):
@@ -96,9 +158,9 @@ class MofcomClient:
         params = {
             'parseType': 'bulidstatic',
             'webId': self.web_id,
-            'tplSetId': TPL_SET_ID,
+            'tplSetId': self.tpl_set_id or TPL_SET_ID,
             'pageType': 'column',
-            'tagId': '信息列表',
+            'tagId': self.tag_id or '信息列表',
             'editType': 'null',
             'pageId': col_id,
             'paramJson': json.dumps({'pageNo': page_no, 'pageSize': page_size}, ensure_ascii=False),
