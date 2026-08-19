@@ -80,7 +80,8 @@ def crawl_policy_batch(codes, db, logger, max_pages_per_col=10):
             stat[code] = {'skipped': '种子政策已有，跳过原文爬取'}
             logger.info('[%s] 种子国跳过政策原文', code)
             continue
-        a2 = SITE_CODE_MAP.get(code, country['iso_alpha2'].lower())
+        a2_raw = country.get('iso_alpha2') or country.get('iso_alpha3') or ''
+        a2 = SITE_CODE_MAP.get(code, a2_raw.lower() if a2_raw else '')
         client = MofcomClient(a2, logger=logger)
         cols = client.discover_columns()
         if not cols:
